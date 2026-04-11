@@ -18,6 +18,10 @@ public class UserLoginDTO {
     private String userEmail;
     private String password;
     private String accountType;
+    private String bio;
+    private String imagePath;
+    private int likes = 0;
+    private int materials = 0;
     private  boolean agreeToTerms;
     // Gettery i settery (lub adnotacja @Data z Lombok)
 }

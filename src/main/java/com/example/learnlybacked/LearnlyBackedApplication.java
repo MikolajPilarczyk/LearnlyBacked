@@ -14,17 +14,7 @@ public class LearnlyBackedApplication {
         SpringApplication.run(LearnlyBackedApplication.class, args);
     }
 
-    @Data
-    @Entity
-    class User
-    {
-        @Id
-        private String userNameAndSurname;
-        private String userEmail;
-        private String password;
-        private String accountType;
 
-    }
 
 }
 
