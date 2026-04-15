@@ -16,7 +16,10 @@ public class UserPosts {
     private Long id;
     private String userID;
     private String postName;
-    private String imagePath;
+    private String imagesPaths;
+    private String description;
+    private String categoryName;
+    private String[] tags;
 
 
 }
