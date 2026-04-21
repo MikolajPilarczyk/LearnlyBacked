@@ -5,21 +5,24 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+
+
+
 @Getter
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "UsersPosts")
-public class UserPosts {
+@Table(name = "UsersPlaylistsSet")
+public class UserPlaylistsSet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String userID;
-    private String postName;
-    private String imagesPaths;
-    private String description;
-    private String categoryName;
+    private String playlistID;
+    private String title;
+    private String category;
     private String[] tags;
+
 
 
 }
