@@ -16,8 +16,13 @@ public class RegisterController {
 
     @Autowired
     private UserRepository userRepository;
+
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
+
+
+
+
     @PostMapping("/register")
     public String receiveUser(@RequestBody UserLoginDTO  user) {
         System.out.println("Odebrano: " + user.getUserEmail());
