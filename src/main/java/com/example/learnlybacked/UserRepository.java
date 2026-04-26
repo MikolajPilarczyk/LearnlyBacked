@@ -12,7 +12,7 @@ import java.util.List;
 
 @Repository
 public interface UserRepository extends JpaRepository<UserLoginDTO, Long> {
-
+    
 
 
     @Query("SELECT count(u.userEmail) FROM UserLoginDTO u WHERE u.userEmail = :email")
