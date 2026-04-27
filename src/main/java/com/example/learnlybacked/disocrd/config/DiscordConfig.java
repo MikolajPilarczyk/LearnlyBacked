@@ -44,7 +44,9 @@ public class DiscordConfig {
 
 
                     Commands.slash("roll","Roll dice")
-                            .addOption(OptionType.STRING, "roll", "What the roll dice?", true)
+                            .addOption(OptionType.STRING, "roll", "What the roll dice? (e.g 3d6)", true)
+                            .addOption(OptionType.STRING, "roll_bonus", "Roll bonus (e.g +2)", false)
+
             ).queue();
             System.out.println("Komendy zarejestrowane dla serwera!");
         } else {
@@ -58,7 +60,8 @@ public class DiscordConfig {
                         .addOption(OptionType.STRING, "content", "What the bot should say", true),
 
                 Commands.slash("roll","Roll dice")
-                        .addOption(OptionType.STRING, "roll", "What the roll dice?", true)
+                        .addOption(OptionType.STRING, "roll", "What the roll dice? (e.g 3d6)", true)
+                        .addOption(OptionType.STRING, "roll_bonus", "Roll bonus (e.g +2)", false)
 
         ).queue();
 

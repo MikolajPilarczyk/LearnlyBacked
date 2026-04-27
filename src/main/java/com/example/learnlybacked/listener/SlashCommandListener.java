@@ -17,8 +17,12 @@ public class SlashCommandListener extends ListenerAdapter {
                 String content = event.getOption("content", OptionMapping::getAsString);
                 event.reply(content).queue();
             }
+
+
            case "roll" -> {
                 String roll = event.getOption("roll", OptionMapping::getAsString).trim();
+                String rollBonus = event.getOption("roll_bonus", OptionMapping::getAsString).trim();
+
                 String[] rollParams = roll.split("d");
 
                 if(rollParams.length ==2) {
@@ -36,8 +40,21 @@ public class SlashCommandListener extends ListenerAdapter {
                         }
 
 
+                        if(rollBonus.charAt(0) == '+') {
+                            String tempRollValue = rollBonus.replace("+","");
+                            maxResult += Integer.parseInt(tempRollValue);
+                        }
+                        else if (rollBonus.charAt(0)=='-')
+                        {
+                            String tempRollValue = rollBonus.replace("-","");
+                            maxResult -= Integer.parseInt(tempRollValue);
 
-                        event.reply("Rolled "+String.valueOf(roll) +"\nFinal result: "+String.valueOf(maxResult)).queue();
+
+                        }
+
+
+
+                        event.reply("Rolled "+String.valueOf(roll)+ " " + rollBonus +"\nFinal result: "+String.valueOf(maxResult)).queue();
 
 
                     } catch (NumberFormatException e) {

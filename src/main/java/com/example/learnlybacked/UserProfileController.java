@@ -14,6 +14,9 @@ public class UserProfileController {
     }
     public record UsernameToSend(String usernameToFind){}
 
+
+
+
     @Autowired
     private UserRepository userRepository;
 
@@ -33,5 +36,18 @@ public class UserProfileController {
         if(userRepository.findUserByUsername(user.usernameToFind)==1)
             return 1;
         else return 0;
+    }
+
+
+
+    @PostMapping("/user/playlists")
+    public UserPlaylistsSetTable Playlists(@RequestBody UsernameToSend user) {
+        UserPlaylistsSetTable returnData = new UserPlaylistsSetTable();
+
+
+
+
+
+        return returnData;
     }
 }
