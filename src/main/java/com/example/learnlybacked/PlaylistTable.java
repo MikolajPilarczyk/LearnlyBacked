@@ -1,6 +1,7 @@
 package com.example.learnlybacked;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -21,6 +22,7 @@ public class PlaylistTable {
     private Long id;
     private String title;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "set_id")
     private UserPlaylistsSetTable userPlaylistsSet;
@@ -28,7 +30,6 @@ public class PlaylistTable {
     @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL , mappedBy = "playlist")
     private List<SongsTable> songs = new ArrayList<>();
-
     public void addSong(SongsTable songsTable) {
         songs.add(songsTable);
         songsTable.setPlaylist(this);

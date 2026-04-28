@@ -33,7 +33,7 @@ public class DiscordConfig {
 
 
 
-        //dev test
+
         String guildId = "944711940771561512";
         Guild guild = jda.getGuildById(guildId);
 
