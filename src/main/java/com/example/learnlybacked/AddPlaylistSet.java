@@ -7,9 +7,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:5173")
 public class AddPlaylistSet
 {
     public static class FormDataSongs
@@ -31,6 +32,7 @@ public class AddPlaylistSet
         public List<FormDataUserPlaylists> playlists;
     }
 
+    record PlaylistId(Long playlistId) { }
 
 
 
@@ -79,6 +81,15 @@ public class AddPlaylistSet
 
 
         return "Zapisano Very Good";
+    }
+
+    @PostMapping("/get-playlist")
+    public List<UserPlaylistsSetTable> SendPlaylistSet(@RequestBody PlaylistId data)
+    {
+
+        System.out.println("wyslano "+userPlaylistsSetTableRepository.findByPlaylistByID(data.playlistId));
+
+        return userPlaylistsSetTableRepository.findByPlaylistByID(data.playlistId);
     }
 
 }

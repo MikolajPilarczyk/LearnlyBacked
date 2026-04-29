@@ -17,4 +17,12 @@ public interface UserPlaylistsSetTableRepository extends JpaRepository<UserPlayl
 
 
     List<UserPlaylistsSetTable> findByUser(UserLoginDTO user);
+
+
+    @Query("select p from UserPlaylistsSetTable p where p.id = :id")
+    List<UserPlaylistsSetTable> findByPlaylistByID(@Param("id") Long id);
+
+    //List<UserPlaylistsSetTable> findByPlaylistByID(Long id);
+
+
 }
