@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+import java.util.Set;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -20,8 +23,12 @@ public class UserLoginDTO {
     private String accountType;
     private String bio;
     private String imagePath;
+
+
+    @Transient
+    private Set<UserPlaylistsSetTable> likedPlaylists;
+
     private int likes = 0;
     private int materials = 0;
-    private  boolean agreeToTerms;
-    // Gettery i settery (lub adnotacja @Data z Lombok)
+    private boolean agreeToTerms;
 }

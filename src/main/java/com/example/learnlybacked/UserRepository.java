@@ -1,6 +1,7 @@
 package com.example.learnlybacked;
 
 import jakarta.transaction.Transactional;
+import org.hibernate.sql.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -43,4 +44,25 @@ public interface UserRepository extends JpaRepository<UserLoginDTO, Long> {
     @Transactional
     @Query("UPDATE UserLoginDTO u SET u.bio = :bio WHERE u.id = :id")
     void updateUserBio(@Param("id") Long id, @Param("bio") String bio);
+
+
+
+
+    @Modifying
+    @Transactional
+    @Query(value = "INSERT INTO user_liked_playlists (user_id, playlist_id) VALUES (:userId, :playlistId)", nativeQuery = true)
+    void likePlaylist(@Param("userId") Long userId, @Param("playlistId") Long playlistId);
+
+
+
+
+    @Modifying
+    @Transactional
+    @Query(value = "DELETE FROM user_liked_playlists WHERE user_id = :userId AND playlist_id = :playlistId", nativeQuery = true)
+    void disslikePlaylist(@Param("userId") Long userId, @Param("playlistId") Long playlistId);
+
+
+
+    @Query(value = "SELECT COUNT(*) > 0 FROM user_liked_playlists WHERE user_id = :userId AND playlist_id = :playlistId", nativeQuery = true)
+    boolean isLiked(@Param("userId") Long userId, @Param("playlistId") Long playlistId);
 }

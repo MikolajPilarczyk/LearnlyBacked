@@ -12,6 +12,7 @@ import org.hibernate.type.SqlTypes;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 @Getter
@@ -38,6 +39,9 @@ public class UserPlaylistsSetTable {
     @JoinColumn(name = "userId")
     private UserLoginDTO user;
 
+    @Transient
+    private List<UserLoginDTO> usersWhoLiked;
+
     @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL , mappedBy = "userPlaylistsSet",fetch = FetchType.EAGER)
     private List<PlaylistTable> playlists = new ArrayList<>();
@@ -47,10 +51,16 @@ public class UserPlaylistsSetTable {
         playlistTable.setUserPlaylistsSet(this);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserPlaylistsSetTable that = (UserPlaylistsSetTable) o;
+        return id != null && id.equals(that.id);
+    }
 
-
-
-
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }
-
-

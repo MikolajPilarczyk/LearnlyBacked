@@ -2,6 +2,8 @@ package com.example.learnlybacked;
 
 import jakarta.transaction.Transactional;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,7 +13,7 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/api")
-public class AddPlaylistSet
+public class PlaylistController
 {
     public static class FormDataSongs
     {
@@ -46,7 +48,7 @@ public class AddPlaylistSet
 
     @Transactional
     @PostMapping("/upload")
-    public String RecivePlaylistSet(@RequestBody FormDataPlaylistSet data)
+    public String UploadPlaylistSet(@RequestBody FormDataPlaylistSet data)
     {
         UserPlaylistsSetTable dataToSave = new UserPlaylistsSetTable();
         Long userID = userRepository.getUserIdByUsername(data.username);
@@ -84,12 +86,56 @@ public class AddPlaylistSet
     }
 
     @PostMapping("/get-playlist")
-    public List<UserPlaylistsSetTable> SendPlaylistSet(@RequestBody PlaylistId data)
+    public List<UserPlaylistsSetTable> RecivePlaylistSet(@RequestBody PlaylistId data)
     {
 
         System.out.println("wyslano "+userPlaylistsSetTableRepository.findByPlaylistByID(data.playlistId));
 
         return userPlaylistsSetTableRepository.findByPlaylistByID(data.playlistId);
+    }
+
+    @Getter
+    @Setter
+    public static class UserDataToLikePlaylist
+    {
+        String username;
+        Long playlistId;
+    }
+
+
+    @Autowired UserLikesRepository userLikesRepository;
+
+    @Transactional
+    @PostMapping("/like-playlist")
+    public String LikePlaylist(@RequestBody UserDataToLikePlaylist data)
+    {
+        Long userID = userRepository.getUserIdByUsername(data.getUsername());
+
+        userLikesRepository.likePlaylist(userID, data.getPlaylistId());
+        return "Polubione pomyślnie";
+    }
+
+    @Transactional
+    @PostMapping("/unlike-playlist")
+    public String UnlikePlaylist(@RequestBody UserDataToLikePlaylist data)
+    {
+
+        Long userID = userRepository.getUserIdByUsername(data.getUsername());
+
+        userLikesRepository.disLikePlaylist(userID, data.getPlaylistId());
+        return "Usunięto polubienie pomyślnie";
+
+    }
+
+
+    @PostMapping("/isLiked")
+    public boolean IsLiked(@RequestBody UserDataToLikePlaylist data)
+    {
+        Long userID = userRepository.getUserIdByUsername(data.getUsername());
+
+
+        return userLikesRepository.isLiked(userID, data.getPlaylistId());
+
     }
 
 }
