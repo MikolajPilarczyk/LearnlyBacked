@@ -31,6 +31,9 @@ public class UserPlaylistsSetTable {
     @Column(name = "category")
     private String category;
 
+    @Column(name = "description")
+    private String description;
+
     @Column(name = "tags", columnDefinition = "varchar(255)[]")
     @JsonProperty("tags")
     private List<String> tags;

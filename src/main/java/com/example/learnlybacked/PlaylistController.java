@@ -31,6 +31,7 @@ public class PlaylistController
         public String username;
         public String title;
         public String category;
+        public String description;
         public List<String> tags;
         public List<FormDataUserPlaylists> playlists;
     }
@@ -61,6 +62,7 @@ public class PlaylistController
         dataToSave.setTitle(data.title);
         dataToSave.setCategory(data.category);
         dataToSave.setTags(data.tags);
+        dataToSave.setDescription(data.description);
         dataToSave.setUser(userRepository.getReferenceById(userID));
 
         for (int i = 0; i < data.playlists.size(); i++) {
