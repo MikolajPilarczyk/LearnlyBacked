@@ -27,6 +27,8 @@ public class UserProfileController {
     @Autowired
     private UserPlaylistsSetTableRepository userPlaylistsSetTableRepository;
 
+    @Autowired
+    UserLikesRepository userLikesRepository;
 
     @PostMapping("/user")
     public UserProfileData ReceiveUser(@RequestBody UserLoginDTO user) {
@@ -68,6 +70,26 @@ public class UserProfileController {
         System.out.println("wyslano dane" + returnData.get(0).getTags());
 
         return returnData;
+    }
+
+
+
+
+    @PostMapping("/user/get-liked-playlists")
+    public List<UserPlaylistsSetTable> GetLikedPlaylists(@RequestBody UsernameToSend user)
+    {
+        Long userID = userRepository.getUserIdByUsername(user.usernameToFind);
+        List<Long> playlistIds = userLikesRepository.playlistLikedByUser(userID);
+        List<UserPlaylistsSetTable> returnData = new ArrayList<>();
+
+        for (int i = 0; i < playlistIds.size(); i++) {
+            returnData.add(userPlaylistsSetTableRepository.findById(playlistIds.get(i)).get());
+        }
+
+        return returnData;
+
+
+
     }
 
 

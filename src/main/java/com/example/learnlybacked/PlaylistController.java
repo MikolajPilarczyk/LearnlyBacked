@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -94,6 +95,7 @@ public class PlaylistController
         return userPlaylistsSetTableRepository.findByPlaylistByID(data.playlistId);
     }
 
+
     @Getter
     @Setter
     public static class UserDataToLikePlaylist
@@ -111,6 +113,7 @@ public class PlaylistController
     {
         Long userID = userRepository.getUserIdByUsername(data.getUsername());
 
+        userRepository.giveLike(userID);
         userLikesRepository.likePlaylist(userID, data.getPlaylistId());
         return "Polubione pomyślnie";
     }
@@ -122,6 +125,8 @@ public class PlaylistController
 
         Long userID = userRepository.getUserIdByUsername(data.getUsername());
 
+
+        userRepository.takeAwayLike(userID);
         userLikesRepository.disLikePlaylist(userID, data.getPlaylistId());
         return "Usunięto polubienie pomyślnie";
 
@@ -137,5 +142,8 @@ public class PlaylistController
         return userLikesRepository.isLiked(userID, data.getPlaylistId());
 
     }
+
+
+
 
 }

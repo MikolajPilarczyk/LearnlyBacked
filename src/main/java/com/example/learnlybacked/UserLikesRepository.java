@@ -7,6 +7,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Repository
 public interface UserLikesRepository extends JpaRepository<UserPlaylistsSetTable, Long> {
 
@@ -26,4 +28,10 @@ public interface UserLikesRepository extends JpaRepository<UserPlaylistsSetTable
     // Sprawdza, czy polubienie istnieje
     @Query(value = "SELECT COUNT(*) > 0 FROM user_liked_playlists WHERE user_id = :userId AND playlist_id = :playlistId", nativeQuery = true)
     boolean isLiked(@Param("userId") Long userId, @Param("playlistId") Long playlistId);
+
+    //Pobiera polubione playliste
+
+    @Query(value = "SELECT playlist_id FROM user_liked_playlists WHERE user_id = :userId", nativeQuery = true)
+    List<Long> playlistLikedByUser(@Param("userId") Long userId);
+
 }

@@ -47,22 +47,18 @@ public interface UserRepository extends JpaRepository<UserLoginDTO, Long> {
 
 
 
+   //Lajkowanie ststystyki!!!!
+    @Modifying
+    @Transactional
+    @Query("UPDATE UserLoginDTO u set u.likes = u.likes + 1 where u.id = :id")
+    void giveLike(@Param("id") Long id);
+
+
 
     @Modifying
     @Transactional
-    @Query(value = "INSERT INTO user_liked_playlists (user_id, playlist_id) VALUES (:userId, :playlistId)", nativeQuery = true)
-    void likePlaylist(@Param("userId") Long userId, @Param("playlistId") Long playlistId);
+    @Query("UPDATE UserLoginDTO u set u.likes = u.likes - 1 where u.id = :id")
+    void takeAwayLike(@Param("id") Long id);
 
 
-
-
-    @Modifying
-    @Transactional
-    @Query(value = "DELETE FROM user_liked_playlists WHERE user_id = :userId AND playlist_id = :playlistId", nativeQuery = true)
-    void disslikePlaylist(@Param("userId") Long userId, @Param("playlistId") Long playlistId);
-
-
-
-    @Query(value = "SELECT COUNT(*) > 0 FROM user_liked_playlists WHERE user_id = :userId AND playlist_id = :playlistId", nativeQuery = true)
-    boolean isLiked(@Param("userId") Long userId, @Param("playlistId") Long playlistId);
 }
