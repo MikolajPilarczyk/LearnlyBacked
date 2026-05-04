@@ -31,7 +31,7 @@ public interface UserRepository extends JpaRepository<UserLoginDTO, Long> {
     @Query("SELECT u from UserLoginDTO u where u.userNameAndSurname = :username")
     UserLoginDTO takeAllDataByName(@Param("username") String username);
 
-    @Query("SELECT u.userNameAndSurname,u.bio,u.likes,u.materials from UserLoginDTO u where u.userNameAndSurname = :username")
+    @Query("SELECT u.userNameAndSurname,u.bio,u.likes,u.materials,u.accountType from UserLoginDTO u where u.userNameAndSurname = :username")
     UserProfileController.UserProfileData takeUserProfileDataByUsername(@Param("username") String username);
 
     @Modifying

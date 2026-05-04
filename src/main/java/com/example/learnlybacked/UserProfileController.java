@@ -14,7 +14,7 @@ import java.util.Optional;
 public class UserProfileController {
 
 
-    public record UserProfileData(String username, String bio, int likes, int materials) {
+    public record UserProfileData(String username, String bio, int likes, int materials,String accountType) {
     }
 
     public record UsernameToSend(String usernameToFind) {
